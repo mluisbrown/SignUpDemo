@@ -8,52 +8,60 @@ struct SignUpView : View {
 
     var body: some View {
         return NavigationView {
-            List {
-                Section(
-                    header: Text("Credentials").font(.body)
-                ) {
-                    HStack {
-                        Text("Email:")
-                            .frame(width: 100, alignment: .leading)
-                        TextField(
-                            model.binding(
-                                \.email,
-                                action: Action.didChangeEmail
-                            ),
-                            placeholder: Text("email address")
-                        )
-                        .clipped()
-                    }
-                    PasswordField(
-                        model.binding(
-                            \.password,
-                            action: Action.didChangePassword
-                        ),
-                        label: Text("Password:"),
-                        placeholder: Text("********")
-                    )
-                    PasswordField(
-                        model.binding(
-                            \.passwordConfirmation,
-                            action: Action.didChangePasswordConfirmation
-                        ),
-                        label: Text("Confirm Password:"),
-                        placeholder: Text("********")
-                    )
-                }
-                if model.state.isSignUpButtonVisible {
-                    Section {
+            VStack {
+                List {
+                    Section(header: Text("Credentials").font(.body).padding([.top, .bottom])) {
                         HStack {
-                            Spacer()
-                            Button(action: { }) { Text("Sign Up").font(.body) }
-                                .disabled(model.state.isSignUpButtonEnabled == false)
-                            Spacer()
+                            Text("Email:")
+                                .frame(width: 100, alignment: .leading)
+                            TextField(
+                                model.binding(
+                                    \.email,
+                                    action: Action.didChangeEmail
+                                ),
+                                placeholder: Text("email address")
+                            ).clipped()
+                        }
+                        PasswordField(
+                            model.binding(
+                                \.password,
+                                action: Action.didChangePassword
+                            ),
+                            label: Text("Password:"),
+                            placeholder: Text("********")
+                        )
+                        PasswordField(
+                            model.binding(
+                                \.passwordConfirmation,
+                                action: Action.didChangePasswordConfirmation
+                            ),
+                            label: Text("Confirm Password:"),
+                            placeholder: Text("********")
+                        )
+                    }
+                    Section(header: Text("Sign Up").font(.body).padding([.top, .bottom])) {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Text("Sign Up").font(.body)
+                                    .tapAction({ self.model.sendAction(Action.didTapSignUp) })
+                                    .disabled(model.state.isSignUpButtonEnabled == false)
+                                    .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
+                                Spacer()
+                            }.padding()
+
+                            if model.state.signUpErrorMessage != nil {
+                                HStack {
+                                    Spacer()
+                                    Text(model.state.signUpErrorMessage ?? "")
+                                        .foregroundColor(.red)
+                                    Spacer()
+                                }.padding()
+                            }
                         }
                     }
-                }
-            }
-            .listStyle(.grouped)
-            .navigationBarTitle(Text("Sign up"))
+                }.listStyle(.grouped)
+            }.navigationBarTitle(Text("Sign up"))
         }
     }
 }

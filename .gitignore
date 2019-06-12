@@ -96,7 +96,8 @@ build/
 #     - unless they are "shared")
 #
 # NB: this is exclusive with OPTION 2 below
-xcuserdata
+xcuserdata/
+SignUpDemo.xcodeproj/xcuserdata/*
 
 # OPTION 2: ---------------------------------
 #     get rid of ALL personal settings, but KEEP SOME OF THEM
@@ -164,20 +165,11 @@ xcuserdata
 # AppCode config files
 .idea/
 
-Iconr\n
-Babylon/dist/
-dist.zip
-Babylon.xcworkspace
-Babylon.xcworkspace/
-!Babylon.xcworkspace/xcshareddata/
 
 # Orig files skipped
 *.orig
 
 Carthage/Checkouts/*
-SDK/Carthage
-.idea/babylon-ios.iml
-.idea/runConfigurations/Babylon_STAGING1.xml
 
 # Fastlane
 fastlane/README.md

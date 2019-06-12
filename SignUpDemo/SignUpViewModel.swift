@@ -1,6 +1,13 @@
 import SwiftUI
 import Combine
 import CombineFeedback
+import CryptoKit
+
+struct SignUpError: Error {
+    var localizedDescription: String {
+        return "SignUp Failed. Please try again."
+    }
+}
 
 class SignUpViewModel: BindableObject {
 
@@ -15,6 +22,7 @@ class SignUpViewModel: BindableObject {
         cancelable = Publishers.system(
             initial: state,
             feedbacks: [
+                SignUpViewModel.whenSigningUp(),
                 Feedback(effects: { _ in self.input.eraseToAnyPublisher() })
             ],
             reduce: SignUpViewModel.reduce
@@ -32,28 +40,32 @@ class SignUpViewModel: BindableObject {
     }
 
     struct State {
-        var email: String
-        var password: String
-        var passwordConfirmation: String
-
-        init(
-            email: String = "",
-            password: String = "",
-            passwordConfirmation: String = ""
-        ) {
-            self.email = email
-            self.password = email
-            self.passwordConfirmation = passwordConfirmation
+        enum Status {
+            case editing
+            case signingUp
         }
 
-        var isSignUpButtonVisible: Bool {
-            return !email.isEmpty
-        }
+        var status: Status = .editing
+        var email: String = ""
+        var password: String = ""
+        var passwordConfirmation: String = ""
+        var signUpErrorMessage: String? = nil
+
+        init() {}
 
         var isSignUpButtonEnabled: Bool {
             return !email.isEmpty &&
                 !password.isEmpty &&
                 password == passwordConfirmation
+        }
+
+        var isSigningUp: Bool {
+            switch self.status {
+            case .signingUp:
+                return true
+            default:
+                return false
+            }
         }
 
         @discardableResult func with(_ block: (inout State) -> Void) -> State {
@@ -65,12 +77,14 @@ class SignUpViewModel: BindableObject {
 
     enum Event {
         case ui(Action)
+        case signUpFailed(SignUpError)
     }
 
     enum Action {
         case didChangeEmail(String)
         case didChangePassword(String)
         case didChangePasswordConfirmation(String)
+        case didTapSignUp
     }
 
     func binding<T>(
@@ -104,7 +118,24 @@ class SignUpViewModel: BindableObject {
                 return state.with {
                     $0.passwordConfirmation = confirmation
                 }
+            case .didTapSignUp:
+                return state.with {
+                    $0.signUpErrorMessage = nil
+                    $0.status = .signingUp
+                }
             }
+        case let .signUpFailed(error):
+            return state.with {
+                $0.status = .editing
+                $0.signUpErrorMessage = error.localizedDescription
+            }
+        }
+    }
+
+    private static func whenSigningUp() -> Feedback<State, Event> {
+        return Feedback(predicate: { $0.isSigningUp }) { _ -> AnyPublisher<Event, Never> in
+            return Publishers.Just(Event.signUpFailed(SignUpError()))
+                .eraseToAnyPublisher()
         }
     }
 }
