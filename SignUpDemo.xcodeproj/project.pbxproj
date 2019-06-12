@@ -3,17 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		742D7D7622B113C200A97AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D7522B113C200A97AF3 /* AppDelegate.swift */; };
 		742D7D7822B113C200A97AF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D7722B113C200A97AF3 /* SceneDelegate.swift */; };
-		742D7D7A22B113C200A97AF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D7922B113C200A97AF3 /* ContentView.swift */; };
 		742D7D7C22B113C300A97AF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 742D7D7B22B113C300A97AF3 /* Assets.xcassets */; };
 		742D7D7F22B113C300A97AF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 742D7D7E22B113C300A97AF3 /* Preview Assets.xcassets */; };
 		742D7D8222B113C300A97AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 742D7D8022B113C300A97AF3 /* LaunchScreen.storyboard */; };
 		742D7D8D22B113C400A97AF3 /* SignUpDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D8C22B113C400A97AF3 /* SignUpDemoTests.swift */; };
+		742D7D9922B1141E00A97AF3 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */; };
+		742D7D9A22B1141E00A97AF3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9822B1141E00A97AF3 /* SignUpView.swift */; };
+		742D7D9D22B114CF00A97AF3 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 742D7D9C22B114CF00A97AF3 /* CombineFeedback */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +32,6 @@
 		742D7D7222B113C200A97AF3 /* SignUpDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignUpDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		742D7D7522B113C200A97AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		742D7D7722B113C200A97AF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		742D7D7922B113C200A97AF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		742D7D7B22B113C300A97AF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		742D7D7E22B113C300A97AF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		742D7D8122B113C300A97AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +39,8 @@
 		742D7D8822B113C400A97AF3 /* SignUpDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignUpDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		742D7D8C22B113C400A97AF3 /* SignUpDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDemoTests.swift; sourceTree = "<group>"; };
 		742D7D8E22B113C400A97AF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		742D7D9822B1141E00A97AF3 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				742D7D9D22B114CF00A97AF3 /* CombineFeedback in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,9 +83,10 @@
 		742D7D7422B113C200A97AF3 /* SignUpDemo */ = {
 			isa = PBXGroup;
 			children = (
+				742D7D9822B1141E00A97AF3 /* SignUpView.swift */,
+				742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */,
 				742D7D7522B113C200A97AF3 /* AppDelegate.swift */,
 				742D7D7722B113C200A97AF3 /* SceneDelegate.swift */,
-				742D7D7922B113C200A97AF3 /* ContentView.swift */,
 				742D7D7B22B113C300A97AF3 /* Assets.xcassets */,
 				742D7D8022B113C300A97AF3 /* LaunchScreen.storyboard */,
 				742D7D8322B113C400A97AF3 /* Info.plist */,
@@ -123,6 +128,9 @@
 			dependencies = (
 			);
 			name = SignUpDemo;
+			packageProductDependencies = (
+				742D7D9C22B114CF00A97AF3 /* CombineFeedback */,
+			);
 			productName = SignUpDemo;
 			productReference = 742D7D7222B113C200A97AF3 /* SignUpDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +181,9 @@
 				Base,
 			);
 			mainGroup = 742D7D6922B113C200A97AF3;
+			packageReferences = (
+				742D7D9B22B114CF00A97AF3 /* XCRemoteSwiftPackageReference "CombineFeedback" */,
+			);
 			productRefGroup = 742D7D7322B113C200A97AF3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,8 +220,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				742D7D7622B113C200A97AF3 /* AppDelegate.swift in Sources */,
+				742D7D9A22B1141E00A97AF3 /* SignUpView.swift in Sources */,
 				742D7D7822B113C200A97AF3 /* SceneDelegate.swift in Sources */,
-				742D7D7A22B113C200A97AF3 /* ContentView.swift in Sources */,
+				742D7D9922B1141E00A97AF3 /* SignUpViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +479,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		742D7D9B22B114CF00A97AF3 /* XCRemoteSwiftPackageReference "CombineFeedback" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:sergdort/CombineFeedback.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		742D7D9C22B114CF00A97AF3 /* CombineFeedback */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 742D7D9B22B114CF00A97AF3 /* XCRemoteSwiftPackageReference "CombineFeedback" */;
+			productName = CombineFeedback;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 742D7D6A22B113C200A97AF3 /* Project object */;
 }
