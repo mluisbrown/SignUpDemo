@@ -16,6 +16,9 @@
 		742D7D9922B1141E00A97AF3 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */; };
 		742D7D9A22B1141E00A97AF3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9822B1141E00A97AF3 /* SignUpView.swift */; };
 		742D7D9D22B114CF00A97AF3 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 742D7D9C22B114CF00A97AF3 /* CombineFeedback */; };
+		742D7D9F22B16FC000A97AF3 /* GravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */; };
+		74EF279422B2DBAB00E175C9 /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF279322B2DBAB00E175C9 /* PublisherExtensions.swift */; };
+		74EF279622B2DCDE00E175C9 /* With.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF279522B2DCDE00E175C9 /* With.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +44,9 @@
 		742D7D8E22B113C400A97AF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		742D7D9822B1141E00A97AF3 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarAPI.swift; sourceTree = "<group>"; };
+		74EF279322B2DBAB00E175C9 /* PublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherExtensions.swift; sourceTree = "<group>"; };
+		74EF279522B2DCDE00E175C9 /* With.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +91,11 @@
 			children = (
 				742D7D9822B1141E00A97AF3 /* SignUpView.swift */,
 				742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */,
+				742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */,
 				742D7D7522B113C200A97AF3 /* AppDelegate.swift */,
 				742D7D7722B113C200A97AF3 /* SceneDelegate.swift */,
+				74EF279322B2DBAB00E175C9 /* PublisherExtensions.swift */,
+				74EF279522B2DCDE00E175C9 /* With.swift */,
 				742D7D7B22B113C300A97AF3 /* Assets.xcassets */,
 				742D7D8022B113C300A97AF3 /* LaunchScreen.storyboard */,
 				742D7D8322B113C400A97AF3 /* Info.plist */,
@@ -219,7 +228,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				742D7D9F22B16FC000A97AF3 /* GravatarAPI.swift in Sources */,
 				742D7D7622B113C200A97AF3 /* AppDelegate.swift in Sources */,
+				74EF279422B2DBAB00E175C9 /* PublisherExtensions.swift in Sources */,
+				74EF279622B2DCDE00E175C9 /* With.swift in Sources */,
 				742D7D9A22B1141E00A97AF3 /* SignUpView.swift in Sources */,
 				742D7D7822B113C200A97AF3 /* SceneDelegate.swift in Sources */,
 				742D7D9922B1141E00A97AF3 /* SignUpViewModel.swift in Sources */,

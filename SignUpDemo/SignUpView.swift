@@ -7,6 +7,10 @@ struct SignUpView : View {
     @EnvironmentObject var model: SignUpViewModel
 
     var body: some View {
+        return render(model: model)
+    }
+
+    private func render(model: SignUpViewModel) -> some View {
         return NavigationView {
             VStack {
                 List {
@@ -15,26 +19,19 @@ struct SignUpView : View {
                             Text("Email:")
                                 .frame(width: 100, alignment: .leading)
                             TextField(
-                                model.binding(
-                                    \.email,
-                                    action: Action.didChangeEmail
-                                ),
+                                model.binding(\.email),
                                 placeholder: Text("email address")
-                            ).clipped()
+                            )
+                            .textContentType(.emailAddress)
+                            .clipped()
                         }
                         PasswordField(
-                            model.binding(
-                                \.password,
-                                action: Action.didChangePassword
-                            ),
+                            model.binding(\.password),
                             label: Text("Password:"),
                             placeholder: Text("********")
                         )
                         PasswordField(
-                            model.binding(
-                                \.passwordConfirmation,
-                                action: Action.didChangePasswordConfirmation
-                            ),
+                            model.binding(\.passwordConfirmation),
                             label: Text("Confirm Password:"),
                             placeholder: Text("********")
                         )
@@ -44,17 +41,30 @@ struct SignUpView : View {
                             HStack {
                                 Spacer()
                                 Text("Sign Up").font(.body)
-                                    .tapAction({ self.model.sendAction(Action.didTapSignUp) })
+                                    .tapAction({ model.sendAction(.didTapSignUp) })
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
                             }.padding()
 
-                            if model.state.signUpErrorMessage != nil {
+                            model.state.signUpErrorMessage.map { message in
                                 HStack {
                                     Spacer()
-                                    Text(model.state.signUpErrorMessage ?? "")
+                                    Text(message)
                                         .foregroundColor(.red)
+                                    Spacer()
+                                }.padding()
+                            }
+
+                            model.state.avatar.map { avatar in
+                                HStack {
+                                    Spacer()
+                                    Image(uiImage: avatar)
+                                        .resizable()
+                                        .frame(width: 256, height: 256)
+                                        .aspectRatio(contentMode: .fit)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 10)
                                     Spacer()
                                 }.padding()
                             }
@@ -63,6 +73,7 @@ struct SignUpView : View {
                 }.listStyle(.grouped)
             }.navigationBarTitle(Text("Sign up"))
         }
+
     }
 }
 
