@@ -1,9 +1,6 @@
 import SwiftUI
-import Combine
 
 struct SignUpView : View {
-    typealias Action = SignUpViewModel.Action
-
     @ObjectBinding var model: SignUpViewModel
 
     init(model: SignUpViewModel) {
@@ -23,19 +20,19 @@ struct SignUpView : View {
                             Text("Email:")
                                 .frame(width: 100, alignment: .leading)
                             TextField(
-                                model.binding(\.email),
+                                $model.state.email,
                                 placeholder: Text("email address")
                             )
                             .textContentType(.emailAddress)
                             .clipped()
                         }
                         PasswordField(
-                            model.binding(\.password),
+                            $model.state.password,
                             label: Text("Password:"),
                             placeholder: Text("********")
                         )
                         PasswordField(
-                            model.binding(\.passwordConfirmation),
+                            $model.state.passwordConfirmation,
                             label: Text("Confirm Password:"),
                             placeholder: Text("********")
                         )
@@ -49,7 +46,7 @@ struct SignUpView : View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .tapAction({ model.sendAction(.didTapSignUp) })
+                                    .tapAction({ model.signUp() })
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
@@ -81,7 +78,6 @@ struct SignUpView : View {
                 }.listStyle(.grouped)
             }.navigationBarTitle(Text("Sign up"))
         }
-
     }
 }
 

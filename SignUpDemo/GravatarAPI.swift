@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import CryptoKit
 import UIKit
 
@@ -12,39 +11,45 @@ struct GravatarAPI {
         }.joined()
     }
 
-    let getAvatar: (String) -> AnyPublisher<UIImage, SignUpError>
+    let getAvatar: (String, @escaping (Result<UIImage, SignUpError>) -> Void) -> Void
 }
 
 extension GravatarAPI {
-    static let live: GravatarAPI = GravatarAPI { email -> AnyPublisher<UIImage, SignUpError> in
-        let emailHash = MD5(string: email.lowercased())
+    static let live: GravatarAPI = GravatarAPI { email, completion in
+        let emailHash = GravatarAPI.MD5(string: email.lowercased())
         let url = URL(string: "https://www.gravatar.com/avatar/\(emailHash)?s=256&d=404")!
 
         let request = URLRequest(url: url)
 
-        return Publishers.Future { promise in
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                let httpReponse = response as? HTTPURLResponse
-                if let data = data,
-                    let httpReponse = httpReponse, 200..<300 ~= httpReponse.statusCode,
-                    let image = UIImage(data: data) {
-                    promise(.success(image))
-                } else if let error = error {
-                    promise(.failure(.network(error)))
-                } else {
-                    promise(.failure(.unknown))
-                }
-            }.resume()
-        }.eraseToAnyPublisher()
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            let result: Result<UIImage, SignUpError>
+            let httpReponse = response as? HTTPURLResponse
+            if let data = data,
+                let httpReponse = httpReponse, 200..<300 ~= httpReponse.statusCode,
+                let image = UIImage(data: data) {
+
+                result = .success(image)
+            } else if let error = error {
+                result = .failure(.network(error))
+            } else {
+                result = .failure(.unknown)
+            }
+
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }.resume()
     }
 
-    static let mockFailure: GravatarAPI = GravatarAPI { email -> AnyPublisher<UIImage, SignUpError> in
-        return Publishers.Once(Result<UIImage, SignUpError>.failure(.unknown))
-            .eraseToAnyPublisher()
+    static let mockFailure: GravatarAPI = GravatarAPI { email, completion in
+        DispatchQueue.main.async {
+            completion(.failure(.unknown))
+        }
     }
 
-    static let mockSuccess: GravatarAPI = GravatarAPI { email -> AnyPublisher<UIImage, SignUpError> in
-        return Publishers.Once(Result<UIImage, SignUpError>.success(UIImage(systemName: "person")!))
-            .eraseToAnyPublisher()
+    static let mockSuccess: GravatarAPI = GravatarAPI { email, completion in
+        DispatchQueue.main.async {
+            completion(.success(UIImage(systemName: "person")!))
+        }
     }
 }
