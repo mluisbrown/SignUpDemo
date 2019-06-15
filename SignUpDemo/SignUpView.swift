@@ -4,7 +4,11 @@ import Combine
 struct SignUpView : View {
     typealias Action = SignUpViewModel.Action
 
-    @EnvironmentObject var model: SignUpViewModel
+    @ObjectBinding var model: SignUpViewModel
+
+    init(model: SignUpViewModel) {
+        self.model = model
+    }
 
     var body: some View {
         return render(model: model)
@@ -40,6 +44,10 @@ struct SignUpView : View {
                         VStack {
                             HStack {
                                 Spacer()
+                                // using Text here instead of Button to avoid bug where a
+                                // Button insisde a list cell makes the entire cell the tap
+                                // area of the Button and highlights the entire cell
+                                // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
                                     .tapAction({ model.sendAction(.didTapSignUp) })
                                     .disabled(model.state.isSignUpButtonEnabled == false)
@@ -109,6 +117,10 @@ struct PasswordField: View {
                     .clipped()
             }
 
+            // using Image here instead of Button to avoid bug where a
+            // Button insisde a list cell makes the entire cell the tap
+            // area of the Button and highlights the entire cell
+            // Feedback: FB6133052
             Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
                 .foregroundColor(Color.blue)
                 .tapAction {
@@ -121,7 +133,7 @@ struct PasswordField: View {
 #if DEBUG
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignUpView(model: SignUpViewModel(api: GravatarAPI.mockFailure))
     }
 }
 #endif
