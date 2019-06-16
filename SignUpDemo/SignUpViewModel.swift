@@ -56,13 +56,19 @@ class SignUpViewModel: BindableObject {
     }
 
     func signUp() {
+        state.status = .signingUp
+
         gravatarAPI.getAvatar(state.email) { result in
             switch result {
             case let .success(image):
                 self.state.avatar = image
+                self.state.signUpErrorMessage = nil
             case let .failure(error):
+                self.state.avatar = nil
                 self.state.signUpErrorMessage = error.localizedDescription
             }
+
+            self.state.status = .editing
         }
     }
 }
