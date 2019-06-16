@@ -8,11 +8,7 @@ struct SignUpView : View {
     }
 
     var body: some View {
-        return render(model: model)
-    }
-
-    private func render(model: SignUpViewModel) -> some View {
-        return NavigationView {
+        NavigationView {
             VStack {
                 List {
                     Section(header: Text("Credentials").font(.body).padding([.top, .bottom])) {
@@ -46,7 +42,7 @@ struct SignUpView : View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .tapAction({ model.signUp() })
+                                    .tapAction({ self.model.signUp() })
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
