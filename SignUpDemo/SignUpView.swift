@@ -44,7 +44,7 @@ struct SignUpView : View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .tapAction({ self.model.sendAction(.didTapSignUp) })
+                                    .tapAction({ self.model.send(action: .didTapSignUp) })
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()

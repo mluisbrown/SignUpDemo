@@ -5,7 +5,7 @@ import CombineFeedback
 class SignUpViewModel: BindableObject {
 
     let didChange = PassthroughSubject<Void, Never>()
-    let input = PassthroughSubject<Event, Never>()
+    private let input = PassthroughSubject<Event, Never>()
     private var cancelable: Cancellable? = nil
 
     private(set) var state: State
@@ -101,13 +101,13 @@ class SignUpViewModel: BindableObject {
             getValue: { self.state[keyPath: keyPath] },
             setValue: { value in
                 if let action = self.action(for: keyPath) {
-                    self.sendAction(action(value))
+                    self.send(action: action(value))
                 }
             }
         )
     }
 
-    func sendAction(_ action: Action) {
+    func send(action: Action) {
         input.send(.ui(action))
     }
 
