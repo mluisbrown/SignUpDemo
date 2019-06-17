@@ -1,9 +1,8 @@
 import SwiftUI
 
-struct SignUpView : View {
-    typealias Action = SignUpViewModel.Action
+struct SignUpView: View {
 
-    @ObjectBinding var model: SignUpViewModel
+    @ObjectBinding private var model: SignUpViewModel
 
     init(model: SignUpViewModel) {
         self.model = model

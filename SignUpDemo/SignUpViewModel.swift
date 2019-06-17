@@ -2,7 +2,15 @@ import SwiftUI
 import Combine
 import CombineFeedback
 
-class SignUpViewModel: BindableObject {
+protocol ViewModel: class {
+    associatedtype State
+    associatedtype Action
+
+    func send(action: Action)
+    func binding<T>(_ keyPath: KeyPath<State, T>) -> Binding<T>
+}
+
+class SignUpViewModel: BindableObject, ViewModel {
 
     let didChange = PassthroughSubject<Void, Never>()
     private let input = PassthroughSubject<Event, Never>()

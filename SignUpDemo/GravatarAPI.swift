@@ -44,7 +44,14 @@ extension GravatarAPI {
     }
 
     static let mockSuccess: GravatarAPI = GravatarAPI { email -> AnyPublisher<UIImage, SignUpError> in
-        return Publishers.Once(Result<UIImage, SignUpError>.success(UIImage(systemName: "person")!))
-            .eraseToAnyPublisher()
+        return Publishers.Once(
+            Result<UIImage, SignUpError>.success(
+                UIImage(
+                    systemName: "person.circle",
+                    withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 100)
+                )!
+            )
+        )
+        .eraseToAnyPublisher()
     }
 }
