@@ -49,7 +49,14 @@ extension GravatarAPI {
 
     static let mockSuccess: GravatarAPI = GravatarAPI { email, completion in
         DispatchQueue.main.async {
-            completion(.success(UIImage(systemName: "person")!))
+            completion(
+                .success(
+                    UIImage(
+                        systemName: "person.circle",
+                        withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 100)
+                    )!
+                )
+            )
         }
     }
 }

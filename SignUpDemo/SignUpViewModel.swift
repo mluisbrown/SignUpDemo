@@ -20,9 +20,6 @@ class SignUpViewModel: BindableObject {
         state = State()
     }
 
-    deinit {
-    }
-
     struct State: With {
         enum Status {
             case editing
