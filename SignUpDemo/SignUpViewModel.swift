@@ -2,15 +2,7 @@ import SwiftUI
 import Combine
 import CombineFeedback
 
-protocol ViewModel: class {
-    associatedtype State
-    associatedtype Action
-
-    func send(action: Action)
-    func binding<T>(_ keyPath: KeyPath<State, T>) -> Binding<T>
-}
-
-class SignUpViewModel: BindableObject, ViewModel {
+class SignUpViewModel: BindableObject {
 
     let didChange = PassthroughSubject<Void, Never>()
     private let input = PassthroughSubject<Event, Never>()
@@ -30,9 +22,10 @@ class SignUpViewModel: BindableObject, ViewModel {
             ],
             reduce: SignUpViewModel.reduce
         ).sink { [weak self] state in
+            guard let self = self else { return }
             dump(state)
-            self?.state = state
-            self?.didChange.send(())
+            self.state = state
+            self.didChange.send(())
         }
     }
 

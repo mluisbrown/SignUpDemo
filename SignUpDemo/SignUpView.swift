@@ -11,7 +11,7 @@ struct SignUpView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List {
+                Form {
                     Section(header: Text("Credentials").font(.body).padding([.top, .bottom])) {
                         HStack {
                             Text("Email:")
@@ -58,6 +58,7 @@ struct SignUpView: View {
                                 }.padding()
                             }
 
+
                             model.state.avatar.map { avatar in
                                 HStack {
                                     Spacer()
@@ -72,7 +73,7 @@ struct SignUpView: View {
                             }
                         }
                     }
-                }.listStyle(.grouped)
+                }
             }.navigationBarTitle(Text("Sign up"))
         }
     }
