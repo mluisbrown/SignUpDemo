@@ -35,28 +35,22 @@ extension GravatarAPI {
                 result = .failure(.unknown)
             }
 
-            DispatchQueue.main.async {
-                completion(result)
-            }
+            completion(result)
         }.resume()
     }
 
     static let mockFailure: GravatarAPI = GravatarAPI { email, completion in
-        DispatchQueue.main.async {
-            completion(.failure(.unknown))
-        }
+        completion(.failure(.unknown))
     }
 
     static let mockSuccess: GravatarAPI = GravatarAPI { email, completion in
-        DispatchQueue.main.async {
-            completion(
-                .success(
-                    UIImage(
-                        systemName: "person.circle",
-                        withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 100)
-                    )!
-                )
+        completion(
+            .success(
+                UIImage(
+                    systemName: "person.circle",
+                    withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 100)
+                )!
             )
-        }
+        )
     }
 }
