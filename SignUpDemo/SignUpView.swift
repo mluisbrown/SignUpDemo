@@ -71,7 +71,7 @@ struct SignUpView : View {
                             }
                         }
                     }
-                }//.listStyle(.grouped)
+                }
             }.navigationBarTitle(Text("Sign up"))
         }
     }
