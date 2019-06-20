@@ -55,7 +55,9 @@ struct SignUpView: View {
                                     Text(message)
                                         .foregroundColor(.red)
                                     Spacer()
-                                }.padding()
+                                }
+                                .padding()
+                                .lineLimit(nil)
                             }
 
 

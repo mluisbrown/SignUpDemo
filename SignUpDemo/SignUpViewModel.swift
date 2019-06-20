@@ -20,6 +20,7 @@ class SignUpViewModel: BindableObject {
                 SignUpViewModel.whenSigningUp(api: api),
                 Feedback(effects: { _ in self.input.eraseToAnyPublisher() })
             ],
+            scheduler: DispatchQueue.main,
             reduce: SignUpViewModel.reduce
         ).sink { [weak self] state in
             guard let self = self else { return }

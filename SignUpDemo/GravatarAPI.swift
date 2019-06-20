@@ -22,20 +22,24 @@ extension GravatarAPI {
 
         let request = URLRequest(url: url)
 
-        return Publishers.Future { promise in
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                let httpReponse = response as? HTTPURLResponse
-                if let data = data,
-                    let httpReponse = httpReponse, 200..<300 ~= httpReponse.statusCode,
-                    let image = UIImage(data: data) {
-                    promise(.success(image))
-                } else if let error = error {
-                    promise(.failure(.network(error)))
-                } else {
-                    promise(.failure(.unknown))
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { result -> UIImage in
+                let (data, response) = result
+                guard let httpResponse = response as? HTTPURLResponse,
+                    200..<300 ~= httpResponse.statusCode,
+                    let image = UIImage(data: data) else { throw SignUpError.unknown }
+
+                return image
+            }
+            .mapError { error -> SignUpError in
+                switch error.self {
+                case is URLError:
+                    return .network(error)
+                default:
+                    return .unknown
                 }
-            }.resume()
-        }.eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
 
     static let mockFailure: GravatarAPI = GravatarAPI { email -> AnyPublisher<UIImage, SignUpError> in
