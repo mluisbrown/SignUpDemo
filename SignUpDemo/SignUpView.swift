@@ -17,8 +17,8 @@ struct SignUpView: View {
                             Text("Email:")
                                 .frame(width: 100, alignment: .leading)
                             TextField(
-                                model.binding(\.email),
-                                placeholder: Text("email address")
+                                "email address",
+                                text: model.binding(\.email)
                             )
                             .textContentType(.emailAddress)
                             .clipped()
@@ -26,12 +26,12 @@ struct SignUpView: View {
                         PasswordField(
                             model.binding(\.password),
                             label: Text("Password:"),
-                            placeholder: Text("********")
+                            placeholder: "********"
                         )
                         PasswordField(
                             model.binding(\.passwordConfirmation),
                             label: Text("Confirm Password:"),
-                            placeholder: Text("********")
+                            placeholder: "********"
                         )
                     }
                     Section(header: Text("Sign Up").font(.body).padding([.top, .bottom])) {
@@ -43,7 +43,7 @@ struct SignUpView: View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .tapAction({ self.model.send(action: .didTapSignUp) })
+                                    .tapAction { self.model.send(action: .didTapSignUp) }
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
@@ -84,7 +84,7 @@ struct SignUpView: View {
 struct PasswordField: View {
     let binding: Binding<String>
     let label: Text
-    let placeholder: Text
+    let placeholder: String
 
     // @State is used for state that is entirely local to the view
     @State var isPasswordVisible = false
@@ -92,7 +92,7 @@ struct PasswordField: View {
     init(
         _ binding: Binding<String>,
         label: Text,
-        placeholder: Text
+        placeholder: String
     ) {
         self.binding = binding
         self.label = label
@@ -104,14 +104,18 @@ struct PasswordField: View {
             label.frame(width: 100, alignment: .leading)
 
             if isPasswordVisible {
-                TextField(binding, placeholder: placeholder)
+                TextField(placeholder, text: binding)
                     .textContentType(.password)
                     .clipped()
             } else {
-                SecureField(binding, placeholder: placeholder)
+                SecureField(placeholder, text: binding)
                     .textContentType(.password)
                     .clipped()
             }
+
+//            Button(action: { self.isPasswordVisible.toggle() }) {
+//                Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
+//            }
 
             // using Image here instead of Button to avoid bug where a
             // Button insisde a list cell makes the entire cell the tap

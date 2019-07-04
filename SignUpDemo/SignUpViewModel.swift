@@ -8,7 +8,7 @@ class SignUpViewModel: BindableObject {
     private let input = PassthroughSubject<Event, Never>()
     private var cancelable: Cancellable? = nil
 
-    private(set) var state: State
+    var state: State
 
     init(
         api: GravatarAPI = GravatarAPI.live
