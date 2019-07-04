@@ -2,11 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "CombineFeedbackk",
+        "package": "CombineFeedback",
         "repositoryURL": "git@github.com:sergdort/CombineFeedback.git",
         "state": {
           "branch": "master",
-          "revision": "33b6f94bca4f3dd3446481188fb836b757822470",
+          "revision": "15e4030da1a6e61b4dbc00120ae917956138e50e",
           "version": null
         }
       }

@@ -6,7 +6,7 @@ class SignUpViewModel: BindableObject {
     let didChange = PassthroughSubject<Void, Never>()
     let gravatarAPI: GravatarAPI
 
-    private(set) var state: State {
+    var state: State {
         didSet {
             dump(state)
             didChange.send(())
