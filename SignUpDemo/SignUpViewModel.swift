@@ -3,13 +3,16 @@ import Combine
 
 class SignUpViewModel: BindableObject {
 
-    let didChange = PassthroughSubject<Void, Never>()
+    let willChange = PassthroughSubject<Void, Never>()
     let gravatarAPI: GravatarAPI
 
     var state: State {
+        willSet {
+            willChange.send(())
+        }
+
         didSet {
             dump(state)
-            didChange.send(())
         }
     }
 
