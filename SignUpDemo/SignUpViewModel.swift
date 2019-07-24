@@ -4,7 +4,7 @@ import CombineFeedback
 
 class SignUpViewModel: BindableObject {
 
-    let didChange = PassthroughSubject<Void, Never>()
+    let willChange = PassthroughSubject<Void, Never>()
     private let input = PassthroughSubject<Event, Never>()
     private var cancelable: Cancellable? = nil
 
@@ -25,13 +25,13 @@ class SignUpViewModel: BindableObject {
         ).sink { [weak self] state in
             guard let self = self else { return }
             dump(state)
+            self.willChange.send(())
             self.state = state
-            self.didChange.send(())
         }
     }
 
     deinit {
-        didChange.send(completion: .finished)
+        willChange.send(completion: .finished)
         input.send(completion: .finished)
         cancelable?.cancel()
     }

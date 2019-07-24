@@ -11,7 +11,7 @@ extension Publisher {
 
     public func ignoreError() -> AnyPublisher<Output, Never> {
         return `catch` { _ in
-            Publishers.Empty()
+            Empty()
         }.eraseToAnyPublisher()
     }
 }
