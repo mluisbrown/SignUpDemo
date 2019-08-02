@@ -1,16 +1,11 @@
 import SwiftUI
 import Combine
 
-class SignUpViewModel: BindableObject {
+class SignUpViewModel: ObservableObject {
 
-    let willChange = PassthroughSubject<Void, Never>()
     let gravatarAPI: GravatarAPI
 
-    var state: State {
-        willSet {
-            willChange.send(())
-        }
-
+    @Published var state: State {
         didSet {
             dump(state)
         }

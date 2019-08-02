@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SignUpView : View {
-    @ObjectBinding var model: SignUpViewModel
+    @ObservedObject var model: SignUpViewModel
 
     init(model: SignUpViewModel) {
         self.model = model
@@ -42,7 +42,7 @@ struct SignUpView : View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .tapAction { self.model.signUp() }
+                                    .onTapGesture { self.model.signUp() }
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
@@ -119,7 +119,7 @@ struct PasswordField: View {
             // Feedback: FB6133052
             Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
                 .foregroundColor(Color.blue)
-                .tapAction {
+                .onTapGesture {
                     self.isPasswordVisible.toggle()
                 }
         }.lineLimit(nil)
