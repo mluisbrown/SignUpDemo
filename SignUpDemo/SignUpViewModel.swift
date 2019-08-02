@@ -91,8 +91,8 @@ class SignUpViewModel: ObservableObject {
         _ keyPath: KeyPath<SignUpViewModel.State, T>
     ) -> Binding<T> {
         return Binding<T>(
-            getValue: { self.state[keyPath: keyPath] },
-            setValue: { value in
+            get: { self.state[keyPath: keyPath] },
+            set: { value in
                 if let action = self.action(for: keyPath) {
                     self.send(action: action(value))
                 }
