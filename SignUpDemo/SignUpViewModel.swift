@@ -2,13 +2,12 @@ import SwiftUI
 import Combine
 import CombineFeedback
 
-class SignUpViewModel: BindableObject {
+class SignUpViewModel: ObservableObject {
 
-    let willChange = PassthroughSubject<Void, Never>()
     private let input = PassthroughSubject<Event, Never>()
     private var cancelable: Cancellable? = nil
 
-    var state: State
+    @Published var state: State
 
     init(
         api: GravatarAPI = GravatarAPI.live
@@ -25,13 +24,11 @@ class SignUpViewModel: BindableObject {
         ).sink { [weak self] state in
             guard let self = self else { return }
             dump(state)
-            self.willChange.send(())
             self.state = state
         }
     }
 
     deinit {
-        willChange.send(completion: .finished)
         input.send(completion: .finished)
         cancelable?.cancel()
     }
@@ -100,8 +97,8 @@ class SignUpViewModel: BindableObject {
         _ keyPath: KeyPath<SignUpViewModel.State, T>
     ) -> Binding<T> {
         return Binding<T>(
-            getValue: { self.state[keyPath: keyPath] },
-            setValue: { value in
+            get: { self.state[keyPath: keyPath] },
+            set: { value in
                 if let action = self.action(for: keyPath) {
                     self.send(action: action(value))
                 }
