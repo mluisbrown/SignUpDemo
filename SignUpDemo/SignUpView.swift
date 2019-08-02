@@ -17,18 +17,18 @@ struct SignUpView : View {
                                 .frame(width: 100, alignment: .leading)
                             TextField(
                                 "email address",
-                                text: $model.state.email
+                                text: model.binding(\.email)
                             )
                             .textContentType(.emailAddress)
                             .clipped()
                         }
                         PasswordField(
-                            $model.state.password,
+                            model.binding(\.password),
                             label: Text("Password:"),
                             placeholder: "********"
                         )
                         PasswordField(
-                            $model.state.passwordConfirmation,
+                            model.binding(\.passwordConfirmation),
                             label: Text("Confirm Password:"),
                             placeholder: "********"
                         )
@@ -42,7 +42,7 @@ struct SignUpView : View {
                                 // area of the Button and highlights the entire cell
                                 // Feedback: FB6133052
                                 Text("Sign Up").font(.body)
-                                    .onTapGesture { self.model.signUp() }
+                                    .onTapGesture { self.model.send(action: .didTapSignUp) }
                                     .disabled(model.state.isSignUpButtonEnabled == false)
                                     .foregroundColor(model.state.isSignUpButtonEnabled ? .blue : .gray)
                                 Spacer()
