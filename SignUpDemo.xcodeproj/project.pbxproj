@@ -501,8 +501,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:sergdort/CombineFeedback.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = revision;
+				revision = e322742c8fb584180afb731615317a7d795682fb;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
