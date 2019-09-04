@@ -18,6 +18,7 @@
 		742D7D9D22B114CF00A97AF3 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 742D7D9C22B114CF00A97AF3 /* CombineFeedback */; };
 		742D7D9F22B16FC000A97AF3 /* GravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */; };
 		74AFC8DD22B564B5005989F2 /* SignUpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFC8DC22B564B5005989F2 /* SignUpError.swift */; };
+		74B703EC22FB2DB600801EA1 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B703EB22FB2DB600801EA1 /* ViewModel.swift */; };
 		74EF279422B2DBAB00E175C9 /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF279322B2DBAB00E175C9 /* PublisherExtensions.swift */; };
 		74EF279622B2DCDE00E175C9 /* With.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF279522B2DCDE00E175C9 /* With.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		742D7D9822B1141E00A97AF3 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarAPI.swift; sourceTree = "<group>"; };
 		74AFC8DC22B564B5005989F2 /* SignUpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpError.swift; sourceTree = "<group>"; };
+		74B703EB22FB2DB600801EA1 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		74EF279322B2DBAB00E175C9 /* PublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherExtensions.swift; sourceTree = "<group>"; };
 		74EF279522B2DCDE00E175C9 /* With.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,8 +93,9 @@
 		742D7D7422B113C200A97AF3 /* SignUpDemo */ = {
 			isa = PBXGroup;
 			children = (
-				742D7D9822B1141E00A97AF3 /* SignUpView.swift */,
+				74B703EB22FB2DB600801EA1 /* ViewModel.swift */,
 				742D7D9722B1141E00A97AF3 /* SignUpViewModel.swift */,
+				742D7D9822B1141E00A97AF3 /* SignUpView.swift */,
 				742D7D9E22B16FC000A97AF3 /* GravatarAPI.swift */,
 				74AFC8DC22B564B5005989F2 /* SignUpError.swift */,
 				742D7D7522B113C200A97AF3 /* AppDelegate.swift */,
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				742D7D9F22B16FC000A97AF3 /* GravatarAPI.swift in Sources */,
+				74B703EC22FB2DB600801EA1 /* ViewModel.swift in Sources */,
 				742D7D7622B113C200A97AF3 /* AppDelegate.swift in Sources */,
 				74EF279422B2DBAB00E175C9 /* PublisherExtensions.swift in Sources */,
 				74EF279622B2DCDE00E175C9 /* With.swift in Sources */,
