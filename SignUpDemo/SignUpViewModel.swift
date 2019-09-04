@@ -2,35 +2,16 @@ import SwiftUI
 import Combine
 import CombineFeedback
 
-class SignUpViewModel: ObservableObject {
-
-    private let input = PassthroughSubject<Event, Never>()
-    private var cancelable: Cancellable? = nil
-
-    @Published var state: State
-
+class SignUpViewModel: ViewModel<SignUpViewModel.State, SignUpViewModel.Action, SignUpViewModel.Event> {
     init(
         api: GravatarAPI = GravatarAPI.live
     ) {
-        state = State()
-        cancelable = Publishers.system(
-            initial: state,
-            feedbacks: [
-                SignUpViewModel.whenSigningUp(api: api),
-                Feedback(effects: { _ in self.input.eraseToAnyPublisher() })
-            ],
+        super.init(
+            initial: State(),
+            feedbacks: [SignUpViewModel.whenSigningUp(api: api)],
             scheduler: DispatchQueue.main,
-            reduce: SignUpViewModel.reduce
-        ).sink { [weak self] state in
-            guard let self = self else { return }
-            dump(state)
-            self.state = state
-        }
-    }
-
-    deinit {
-        input.send(completion: .finished)
-        cancelable?.cancel()
+            reducer: SignUpViewModel.reduce
+        )
     }
 
     struct State: With {
@@ -66,7 +47,6 @@ class SignUpViewModel: ObservableObject {
     }
 
     enum Event {
-        case ui(Action)
         case signUpFailed(SignUpError)
         case signUpSucceeded(UIImage)
     }
@@ -78,7 +58,7 @@ class SignUpViewModel: ObservableObject {
         case didTapSignUp
     }
 
-    private func action<T>(
+    override func action<T>(
         for keyPath: KeyPath<SignUpViewModel.State, T>
     ) -> Optional<(T) -> Action> {
         switch keyPath {
@@ -93,24 +73,8 @@ class SignUpViewModel: ObservableObject {
         }
     }
 
-    func binding<T>(
-        _ keyPath: KeyPath<SignUpViewModel.State, T>
-    ) -> Binding<T> {
-        return Binding<T>(
-            get: { self.state[keyPath: keyPath] },
-            set: { value in
-                if let action = self.action(for: keyPath) {
-                    self.send(action: action(value))
-                }
-            }
-        )
-    }
 
-    func send(action: Action) {
-        input.send(.ui(action))
-    }
-
-    private static func reduce(state: State, event: Event) -> State {
+    private static func reduce(state: State, event: Change) -> State {
         switch event {
         case let .ui(action):
             switch action {
@@ -134,15 +98,18 @@ class SignUpViewModel: ObservableObject {
                     $0.status = .signingUp
                 }
             }
-        case let .signUpSucceeded(image):
-            return state.with {
-                $0.status = .editing
-                $0.avatar = image
-            }
-        case let .signUpFailed(error):
-            return state.with {
-                $0.status = .editing
-                $0.signUpErrorMessage = error.localizedDescription
+        case let .system(event):
+            switch event {
+            case let .signUpSucceeded(image):
+                return state.with {
+                    $0.status = .editing
+                    $0.avatar = image
+                }
+            case let .signUpFailed(error):
+                return state.with {
+                    $0.status = .editing
+                    $0.signUpErrorMessage = error.localizedDescription
+                }
             }
         }
     }
